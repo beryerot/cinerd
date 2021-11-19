@@ -1,0 +1,27 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	background:white;
+	color: #1d1d1d;
+}
+
+.card-img, .card-img-bottom, .card-img-top {
+    max-height: 500px;
+}
+
+.row{
+	justify-content: center;
+}
+
+h1{
+	margin: 50px;
+}
+
+#principal{
+	text-align: center;
+}
