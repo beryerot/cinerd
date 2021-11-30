@@ -177,10 +177,10 @@ $("#guardarRanking").on("click", nuevoRanking);
 function nuevoRanking(){
     newNombre = prompt("Tu nombre: ");
     newApellido = prompt("Tu apellido: ");
-    ranking = localStorage.getItem('storedRanking')
-    ranking = JSON.parse(ranking)
+/*     ranking = localStorage.getItem('storedRanking')
+    ranking = JSON.parse(ranking) */
     ranking.push({nombre: newNombre, apellido: newApellido, puntos: puntaje});
-    localStorage.setItem('storedRanking', JSON.stringify(ranking));
+/*     localStorage.setItem('storedRanking', JSON.stringify(ranking)); */
     $("#newRanking").fadeOut();
 }
 
@@ -189,8 +189,8 @@ function nuevoRanking(){
 $("#verRanking2").on("click", averRanking);
 
 function averRanking(){
-    ranking = localStorage.getItem('storedRanking');
-    ranking = JSON.parse(ranking)
+/*     ranking = localStorage.getItem('storedRanking');
+    ranking = JSON.parse(ranking) */
     ranking.sort(function (a, b){
         return (b.puntos - a.puntos)
     })
