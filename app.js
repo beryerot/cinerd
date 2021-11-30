@@ -165,7 +165,7 @@ function borrarPeliculas(){
 //Función que ejecuta la pantalla al finalizar el juego
 function finaldeJuego(){
     $("#cajaPista #ayudas").fadeOut();
-    $("#principal").append("<div class='gameOver'><div class='bg-danger mb-2 rounded w-100 p-5'><h2>Juego terminado</h2><h5>" + peli1.titulo + " se lanzó el " + fecha1 + "</h5><h5>" + peli2.titulo + " se lanzó el " + fecha2  + "</h5></div><div class='bg-secondary rounded w-100 p-5 text-white'><h5> Tu puntuación final es " + puntaje + " puntos. </h5><h5>Respuestas correctas: " + cantRespuestas + ".<br>Pistas solicitadas " + cantPistas + ".</h5></div><button value='action' onclick='window.location.reload()' class='btn btn-primary m-5' style='width: 40%'>JUGAR DE NUEVO</button></div>");
+    $("#principal").append("<div class='gameOver'><div class='bg-danger mb-2 rounded w-100 p-5'><h2>Juego terminado</h2><h5>" + peli1.titulo + " se lanzó el " + fecha1 + "</h5><h5>" + peli2.titulo + " se lanzó el " + fecha2  + "</h5></div><div class='bg-secondary rounded w-100 p-5 text-white'><h5> Tu puntuación final es " + puntaje + " puntos. </h5><h5>Respuestas correctas: " + cantRespuestas + ".<br>Pistas solicitadas: " + cantPistas + ".</h5></div><button value='action' onclick='window.location.reload()' class='btn btn-primary m-5' style='width: 40%'>JUGAR DE NUEVO</button></div>");
     $("#guardarRanking").append("<div class='gameOver'><button value='action' id='newRanking' class='btn btn-secondary m-2' style='width: 50%'>GUARDAR PUNTAJE</button></div>");
     $("#verRanking2").append("<div class='gameOver'><button value='action' id='viewRanking' class='btn btn-secondary m-2' style='width: 50%'>VER RANKING</button></div>");
     $(".gameOver").fadeIn(3000)
