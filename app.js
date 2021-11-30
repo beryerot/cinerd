@@ -177,10 +177,11 @@ $("#guardarRanking").on("click", nuevoRanking);
 function nuevoRanking(){
     newNombre = prompt("Tu nombre: ");
     newApellido = prompt("Tu apellido: ");
-/*     ranking = localStorage.getItem('storedRanking')
-    ranking = JSON.parse(ranking) */
+    localStorage.setItem('storedRanking', JSON.stringify(ranking));
+    ranking = localStorage.getItem('storedRanking');
+    ranking = JSON.parse(ranking);
     ranking.push({nombre: newNombre, apellido: newApellido, puntos: puntaje});
-/*     localStorage.setItem('storedRanking', JSON.stringify(ranking)); */
+
     $("#newRanking").fadeOut();
 }
 

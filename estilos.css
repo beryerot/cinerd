@@ -13,6 +13,9 @@ body {
 .card-img-top {
     max-width: 300px;
 }
+#pelicula1, #pelicula2{
+    max-width: 300px;
+}
 
 .row{
 	justify-content: center;
