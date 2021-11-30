@@ -11,19 +11,19 @@
 	<title>Sitio de peliculas</title>
 </head>
 <body>
-	<div>
-		<h1 style="text-align: center;">¿Qué película es más nueva?</h1>
-		<div class="row" id="principal">
+	<div class="pantalla">
+		<h1 id="header" style="text-align: center;">¿Qué película es más nueva?</h1>
+		<div class="row text-center" id="principal">
 		<div class="col-md-6" id="pelicula1"></div>
 		<div class="col-md-6" id="pelicula2"></div>
 		</div>
-		<div id="guardarRanking"></div>
-		<div id="verRanking2"></div>
+		<div class="row text-center" id="guardarRanking"></div>
+		<div class="row text-center" id="verRanking2"></div>
 		<ul id="listadoranking" class="text-center"></ul>
-		<div id="cajaPista" class="text-center">
-			<button id="pista" class="btn btn-warning m-5">Pedir una pista</button>
-		</div>
+		<div id="cajaPista" class="text-center"></div>
 	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="app.js"></script>
 </body>
 </html>

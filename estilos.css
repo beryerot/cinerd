@@ -10,18 +10,79 @@ body {
 	color: #1d1d1d;
 }
 
-.card-img, .card-img-bottom, .card-img-top {
-    max-height: 500px;
+.card-img-top {
+    max-width: 400px;
 }
 
 .row{
 	justify-content: center;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 h1{
 	margin: 50px;
 }
 
-#principal{
+.correcto{
+	background-color: green;
+	color: white;
+	width: 100vw;
+	height: 100vh;
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	z-index: 1;
+	position: absolute;
+}
+
+.incorrecto{
+	background-color: red;
+	color: white;
+	width: 100vw;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	z-index: 1;
+	position: absolute;
+}
+
+.textoCorrecto, .textoIncorrecto{
+	position: relative;
+	top: 40%;
+	font-size: 50px;
+	text-align: center;
+}
+
+.gameOver{display: none;
+width: 100%;
+padding: 0;}
+
+#pelicula1{
+	position: relative;
+}
+
+.avisoPista{
+	background-color: orange;
+	color: white;
+	width: 100%;
+	height: 30vh;
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	z-index: 1;
+	position: absolute;
+	top: 0;
+
+}
+
+.textoAvisoPista{
+	color: white;
+	position: relative;
+	top: 40%;
+	font-size: 30px;
 	text-align: center;
 }
