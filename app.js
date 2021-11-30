@@ -76,6 +76,7 @@ const cargarPeliculas = async() => {
         puntaje = puntaje - 5;
         cantPistas = cantPistas + 1;
 }
+
 }
 //Ejecuta la función principal
 cargarPeliculas()
@@ -173,25 +174,16 @@ function finaldeJuego(){
 
 // Función para guardar un nuevo ranking
 $("#guardarRanking").on("click", nuevoRanking);
-
 function nuevoRanking(){
     newNombre = prompt("Tu nombre: ");
     newApellido = prompt("Tu apellido: ");
-    localStorage.setItem('storedRanking', JSON.stringify(ranking));
-    ranking = localStorage.getItem('storedRanking');
-    ranking = JSON.parse(ranking);
     ranking.push({nombre: newNombre, apellido: newApellido, puntos: puntaje});
-
     $("#newRanking").fadeOut();
 }
 
 // Función para visualizar ranking
-
 $("#verRanking2").on("click", averRanking);
-
 function averRanking(){
-/*     ranking = localStorage.getItem('storedRanking');
-    ranking = JSON.parse(ranking) */
     ranking.sort(function (a, b){
         return (b.puntos - a.puntos)
     })

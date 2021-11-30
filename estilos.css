@@ -11,10 +11,10 @@ body {
 }
 
 .card-img-top {
-    max-width: 300px;
+    max-width: 350px;
 }
 #pelicula1, #pelicula2{
-    max-width: 300px;
+    max-width: 500px;
 }
 
 .row{
