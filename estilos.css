@@ -14,7 +14,7 @@ body {
     max-width: 350px;
 }
 #pelicula1, #pelicula2{
-    max-width: 500px;
+    max-width: 450px;
 }
 
 .row{
@@ -26,7 +26,7 @@ body {
 }
 
 h1{
-	margin: 50px;
+	padding: 20px;
 }
 
 .correcto{

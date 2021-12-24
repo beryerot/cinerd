@@ -4,7 +4,7 @@
 // El puntaje es la sumatoria de las respuestas correctas antes de este error. Cada respuesta correcta suma 10 puntos. Cada pedido de ayuda resta 5 puntos. 
 
 //Ranking de puntos
-var ranking = [
+ranking = [
     {nombre: "Jorge", apellido: "Fernández", puntos: 120 },  
     {nombre: "Romina", apellido: "Sanabria", puntos: 85 },
     {nombre: "Cristian", apellido: "Portillo", puntos: 70 },
@@ -12,23 +12,20 @@ var ranking = [
     {nombre: "Quique", apellido: "Acuña", puntos: 150 }
 ]
 
+// Creo la constante de la URL que tiene la API
+const URLGET = "https://api.themoviedb.org/3/list/3673?api_key=7e3111bbd212965105f6b85a02ee82af";
 
-// Consulta la API de películas
-const cargarPeliculas = async() => {
-    try {
-        const respuesta = await fetch ('https://api.themoviedb.org/3/list/3673?api_key=7e3111bbd212965105f6b85a02ee82af');
+// Creo la función principal del juego
+function cargarPeliculas(){
 
-//Constata que la respuesta sea afirmativa
-        if(respuesta.status === 200){
-//Baja a la const datos la información del JSON
-            const datos = await respuesta.json();
+//Llamos con GET a la api de películas que servirá como base para las preguntas del juego 
+$.get(URLGET, function (respuesta, estado) {
+    if (estado === "success") {
+      let misDatos = respuesta;
+      peliculas = misDatos.items;
 
-//Crea el array de películas 
-            const peliculas = datos.items;
-
-//Crea dos números aleatorios para seleccionar dentro del array de películas
-            var aleatorio = Math.floor(Math.random() *    peliculas.length)
-            var aleatorio2 = Math.floor(Math.random() *    peliculas.length)
+// Ejecuta la función de aleatorios para seleccionar las películas sobre las que se responderá    
+generarAleatorios();
 
 //Crea el objeto peli1 y peli2
             peli1 = {titulo: peliculas[aleatorio].title, fecha: peliculas[aleatorio].release_date, id: peliculas[aleatorio].id, poster: peliculas[aleatorio].poster_path}
@@ -42,24 +39,17 @@ const cargarPeliculas = async() => {
             fecha1 = date1.toLocaleDateString();
             fecha2 = date2.toLocaleDateString();
 
-// Lleva al HTML las opciones de películas del juego
-            $("#pelicula1").append('<div id="op1" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli1.poster + '" class="card-img-top" alt="' + peli1.titulo +'" value="action"><button id="boton1" value="action" class="btn btn-primary w-50">' + peli1.titulo + '</button></div>');
-            $("#pelicula2").append('<div id="op2" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli2.poster + '" class="card-img-top" alt="' + peli2.titulo +'" value="action"><button id="boton2" value="action" class="btn btn-primary w-50">' + peli2.titulo + '</button></div>');
-                
-// Comprobaciones en caso de que la API no responda correctamente
-        } else if(respuesta.status === 401){
-            console.log('Pusiste mal la llave')
-        } else if(respuesta.status === 404){
-            console.log('La película no existe')
-        } else {
-            console.log('Ups, hay un error')
         }
-    } catch(error){
-        console.log(error);
-    }
+
+// Lleva al HTML las opciones de películas del juego
+            $("#pelicula1").append('<div id="op1" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli1.poster + '" class="card-img-top" alt="' + peli1.titulo +'" value="action"><button id="boton1" value="action" class="btn btn-dark w-50 m-3">' + peli1.titulo + '</button></div>');
+            $("#pelicula2").append('<div id="op2" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli2.poster + '" class="card-img-top" alt="' + peli2.titulo +'" value="action"><button id="boton2" value="action" class="btn btn-dark w-50 m-3">' + peli2.titulo + '</button></div>');
+                
+
+        })
 
 // Crea el botón para pedir pistas
-    $("#cajaPista").append('<button id="pista" class="btn btn-warning m-5">Pedir una pista (resta 5 puntos)</button>');
+    $("#cajaPista").append('<button id="pista" class="btn btn-warning m-3">Pedir una pista (resta 5 puntos)</button>');
 
 //Evento por click en botón de pistas
     $("#pista").on("click", pista);
@@ -67,7 +57,7 @@ const cargarPeliculas = async() => {
 //Función de pista
     function pista(){
         $("#pista").remove();
-        $("#cajaPista").append("<button id='ayudas' class='btn btn-warning m-5' style='display:none'>La película " + peli1.titulo + " se estrenó el " + fecha1 + "</button>");
+        $("#cajaPista").append("<button id='ayudas' class='btn btn-warning p-3' style='display:none'>La película " + peli1.titulo + " se estrenó el " + fecha1 + "</button>");
         $("#ayudas").fadeIn();
         $(".pantalla").append("<div class='avisoPista' style='display:none'><p class='textoAvisoPista'>¡Perdiste 5 puntos!</p></div>");
         $(".avisoPista").fadeIn(400)
@@ -76,11 +66,19 @@ const cargarPeliculas = async() => {
         puntaje = puntaje - 5;
         cantPistas = cantPistas + 1;
 }
-
 }
 //Ejecuta la función principal
 cargarPeliculas()
 
+
+    //Crea dos números aleatorios para seleccionar dentro del array de películas.
+    //El segundo usa un bucle para asegurarse que no coincida con el primero.
+function generarAleatorios(){
+    aleatorio = Math.floor(Math.random() *    peliculas.length);
+    do {
+        aleatorio2 = Math.floor(Math.random() *    peliculas.length);
+      } while (aleatorio2 === aleatorio);
+}
 
 // Creo la variable puntaje para hacer seguimiento de la puntuación del jugador. También el contador de respuestas correctas y de pistas solicitadas. 
 puntaje = 0;
@@ -166,30 +164,46 @@ function borrarPeliculas(){
 //Función que ejecuta la pantalla al finalizar el juego
 function finaldeJuego(){
     $("#cajaPista #ayudas").fadeOut();
-    $("#principal").append("<div class='gameOver'><div class='bg-danger mb-2 rounded w-100 p-5'><h2>Juego terminado</h2><h5>" + peli1.titulo + " se lanzó el " + fecha1 + "</h5><h5>" + peli2.titulo + " se lanzó el " + fecha2  + "</h5></div><div class='bg-secondary rounded w-100 p-5 text-white'><h5> Tu puntuación final es " + puntaje + " puntos. </h5><h5>Respuestas correctas: " + cantRespuestas + ".<br>Pistas solicitadas: " + cantPistas + ".</h5></div><button value='action' onclick='window.location.reload()' class='btn btn-primary m-5' style='width: 40%'>JUGAR DE NUEVO</button></div>");
-    $("#guardarRanking").append("<div class='gameOver'><button value='action' id='newRanking' class='btn btn-secondary m-2' style='width: 50%'>GUARDAR PUNTAJE</button></div>");
-    $("#verRanking2").append("<div class='gameOver'><button value='action' id='viewRanking' class='btn btn-secondary m-2' style='width: 50%'>VER RANKING</button></div>");
+    $("#header").fadeOut();
+    $("#principal").append("<div class='gameOver'><div class='bg-danger mb-2 rounded w-100 p-3 mb-3 mt-3'><h2>Juego terminado</h2><h5>" + peli1.titulo + " se lanzó el " + fecha1 + "</h5><h5>" + peli2.titulo + " se lanzó el " + fecha2  + "</h5></div><div class='bg-secondary rounded w-100 p-3 text-white'><h5> Tu puntuación final es " + puntaje + " puntos. </h5><h5>Respuestas correctas: " + cantRespuestas + ".<br>Pistas solicitadas: " + cantPistas + ".</h5></div><button value='action' onclick='window.location.reload()' class='btn btn-dark m-5' style='width: 40%'>JUGAR DE NUEVO</button></div>");
+    $("#principal").append(`<div id='cajaNombre' class='gameOver w-50'>
+    <form class='form'>
+        <label for="newnombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="newnombre" placeholder="Ingrese su Nombre">
+        <label for="newapellido" class="form-label">Apellido</label>
+        <input type="text" class="form-control" id="newapellido" placeholder="Ingrese su Apellido">
+    </form>`)
+    $("#guardarRanking").append("<button value='action' id='newRanking' class='btn btn-secondary m-3' style='width: 50%'>GUARDAR PUNTAJE</button></div>");
+    $("#verRanking2").append("<div class='gameOver'><button value='action' id='viewRanking' class='btn btn-secondary m-3' style='width: 50%'>VER RANKING</button></div>");
     $(".gameOver").fadeIn(3000)
 }
 
 // Función para guardar un nuevo ranking
 $("#guardarRanking").on("click", nuevoRanking);
 function nuevoRanking(){
-    newNombre = prompt("Tu nombre: ");
-    newApellido = prompt("Tu apellido: ");
+    newNombre = $("#newnombre").val();
+    newApellido = $("#newapellido").val();
+    localStorage.setItem('storedRanking', JSON.stringify(ranking));
+    ranking = localStorage.getItem('storedRanking');
+    ranking = JSON.parse(ranking);
     ranking.push({nombre: newNombre, apellido: newApellido, puntos: puntaje});
-    $("#newRanking").fadeOut();
+    localStorage.setItem('storedRanking', JSON.stringify(ranking));
+    $("#newRanking").remove()
+    $("#cajaNombre").remove();
 }
 
 // Función para visualizar ranking
 $("#verRanking2").on("click", averRanking);
 function averRanking(){
+    ranking = localStorage.getItem('storedRanking');
+    ranking = JSON.parse(ranking)
     ranking.sort(function (a, b){
         return (b.puntos - a.puntos)
     })
     for (const puestos of ranking) {
     $("#listadoranking").append((puestos.nombre) + " " + (puestos.apellido) + ": " + (puestos.puntos) + " puntos. <hr>");
     $("#viewRanking").fadeOut();
-    $("#newRanking").fadeOut();
+    $("#newRanking").remove();
+    $("#cajaNombre").remove();
     }
     }
