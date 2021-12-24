@@ -2,8 +2,10 @@
 // El objetivo es, ante dos películas, responder cuál es la más reciente. 
 // El juego finaliza cuando se responde de manera incorrecta. 
 // El puntaje es la sumatoria de las respuestas correctas antes de este error. Cada respuesta correcta suma 10 puntos. Cada pedido de ayuda resta 5 puntos. 
+// El juego está montado sobre una API pública de películas.
 
-//Ranking de puntos
+
+//Ranking previo de puntos
 ranking = [
     {nombre: "Jorge", apellido: "Fernández", puntos: 120 },  
     {nombre: "Romina", apellido: "Sanabria", puntos: 85 },
@@ -12,13 +14,13 @@ ranking = [
     {nombre: "Quique", apellido: "Acuña", puntos: 150 }
 ]
 
-// Creo la constante de la URL que tiene la API
+// Crea la constante de la URL que tiene la API
 const URLGET = "https://api.themoviedb.org/3/list/3673?api_key=7e3111bbd212965105f6b85a02ee82af";
 
-// Creo la función principal del juego
+// Crea la función principal del juego
 function cargarPeliculas(){
 
-//Llamos con GET a la api de películas que servirá como base para las preguntas del juego 
+//Llama con GET a la api de películas que servirá como base para las preguntas del juego 
 $.get(URLGET, function (respuesta, estado) {
     if (estado === "success") {
       let misDatos = respuesta;
@@ -44,8 +46,6 @@ generarAleatorios();
 // Lleva al HTML las opciones de películas del juego
             $("#pelicula1").append('<div id="op1" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli1.poster + '" class="card-img-top" alt="' + peli1.titulo +'" value="action"><button id="boton1" value="action" class="btn btn-dark w-50 m-3">' + peli1.titulo + '</button></div>');
             $("#pelicula2").append('<div id="op2" class="col-auto"><img src="https://image.tmdb.org/t/p/w500/' + peli2.poster + '" class="card-img-top" alt="' + peli2.titulo +'" value="action"><button id="boton2" value="action" class="btn btn-dark w-50 m-3">' + peli2.titulo + '</button></div>');
-                
-
         })
 
 // Crea el botón para pedir pistas
@@ -71,7 +71,7 @@ generarAleatorios();
 cargarPeliculas()
 
 
-    //Crea dos números aleatorios para seleccionar dentro del array de películas.
+    //Creo dos números aleatorios para seleccionar dentro del array de películas.
     //El segundo usa un bucle para asegurarse que no coincida con el primero.
 function generarAleatorios(){
     aleatorio = Math.floor(Math.random() *    peliculas.length);
@@ -86,7 +86,7 @@ cantPistas = 0;
 cantRespuestas = 0;
 
 //Analiza si la respuesta fue correcta en caso de elegir la película 1. 
-//Si es correcto suma un punto, borra las películas sobre las que ya se respondió y propone otras. 
+//Si es correcto suma 10 puntos, borra las películas sobre las que ya se respondió y propone otras. 
 // Si es incorrecto borra las películas, borra el elemento de "pistas" y presenta la pantalla de final de juego que muestra puntaje y ofrece jugar de nuevo.
 function respuesta1(){
 		if(date1 > date2){
@@ -119,7 +119,7 @@ function respuesta1(){
 }
 
 //Analiza si la respuesta fue correcta en caso de elegir la película 2. 
-//Si es correcto suma un punto, borra las películas sobre las que ya se respondió y propone otras. 
+//Si es correcto suma 10 puntos, borra las películas sobre las que ya se respondió y propone otras. 
 // Si es incorrecto borra las películas, borra el elemento de "pistas" y presenta la pantalla de final de juego que muestra puntaje y ofrece jugar de nuevo.
 function respuesta2(){
 	    if(date2 > date1){
@@ -161,7 +161,7 @@ function borrarPeliculas(){
     $("#pelicula2 #op2").remove()
 }
 
-//Función que ejecuta la pantalla al finalizar el juego
+//Función que ejecuta la pantalla de GameOver   
 function finaldeJuego(){
     $("#cajaPista #ayudas").fadeOut();
     $("#header").fadeOut();
